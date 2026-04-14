@@ -1,0 +1,298 @@
+﻿/* Google Fonts Import Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.calendar {
+    background-color: lightyellow; /* Đặt màu nền mới khi hover qua ô */
+    cursor: pointer; /* Đổi con trỏ chuột thành dấu nhấp chuột */
+}
+
+    .calendar td:hover {
+        background-color: wheat; /* Đặt màu nền mới khi hover qua ô */
+    }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.table100-col {
+    max-width: 85px;
+}
+.table100-fixhead{
+    position:sticky;
+    top:0px;
+    z-index:2;
+}
+    .table100-fixcol{
+        position:sticky;
+        left:0px;
+    }
+.table100-fixmain {
+    position: sticky;
+    left: 0px;
+    top:0px;
+    background-color:gray;
+    z-index:3;
+}
+    .sidebar1 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 260px;
+        background: #17a2b8;
+        z-index: 100;
+        transition: all 0.5s ease;
+    }
+.backdrop {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    display: block;
+    color: #e74a3b;
+    font: bold;
+    animation: floatText 10s infinite alternate ease-in-out;
+    
+}
+@-webkit-keyframes floatText {
+    from {
+        left: 00%;
+    }
+
+    to {
+        /* left: auto; */
+        left: 100%;
+    }
+}
+    .sidebar1.close1 {
+        width: 78px;
+    }
+
+    .sidebar1 .logo-details {
+        height: 60px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+        .sidebar1 .logo-details i {
+            font-size: 30px;
+            color: #fff;
+            height: 50px;
+            min-width: 78px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .sidebar1 .logo-details .logo_name {
+            font-size: 22px;
+            color: #fff;
+            font-weight: 600;
+            transition: 0.3s ease;
+            transition-delay: 0.1s;
+        }
+
+    .sidebar1.close1 .logo-details .logo_name {
+        transition-delay: 0s;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .sidebar1 .nav-links {
+        overflow: auto;
+    }
+
+    .sidebar1.close1 .nav-links {
+        overflow: visible;
+    }
+
+    .sidebar1 .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar1 .nav-links li {
+        position: relative;
+        list-style: none;
+        transition: all 0.4s ease;
+    }
+
+        .sidebar1 .nav-links li:hover {
+            border-top: 1px solid white;
+            
+            border-bottom: 1px solid white;
+            
+        }
+
+    .sidebar1.close1 .nav-links .sub-menu li:hover {
+        border: 1px solid white;
+        border-radius:5px;
+        padding:5px;
+       
+    }
+
+    .sidebar1 .nav-links .sub-menu li .link_name:hover {
+        font-size: 17px;
+    }
+
+    .sidebar1 .nav-links .sub-menu li a:hover {
+        font-size: 18px;
+    }
+
+    .sidebar1 .nav-links li .iocn-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sidebar1.close1 .nav-links li .iocn-link {
+        display: block
+    }
+
+    .sidebar1 .nav-links li i {
+        height: 50px;
+        min-width: 78px;
+        text-align: center;
+        line-height: 50px;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar1 .nav-links li.showMenu i.arrow {
+        transform: rotate(-180deg);
+    }
+
+    .sidebar1.close1 .nav-links i.arrow {
+        display: none;
+    }
+
+    .sidebar1 .nav-links li a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+        .sidebar1 .nav-links li a .link_name {
+            font-size: 18px;
+            font-weight: 400;
+            color: #fff;
+            transition: all 0.4s ease;
+        }
+
+    .sidebar1.close1 .nav-links li a .link_name {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .sidebar1 .nav-links li .sub-menu {
+        padding: 6px 6px 14px 80px;
+        margin-top: -10px;
+        background: #17a2b8;
+        display: none;
+    }
+
+    .sidebar1 .nav-links li.showMenu .sub-menu {
+        display: block;
+    }
+
+    .sidebar1 .nav-links li .sub-menu a {
+        color: #fff;
+        font-size: 15px;
+        padding: 5px 0;
+        white-space: nowrap;
+        opacity: 0.6;
+        transition: all 0.3s ease;
+    }
+
+        .sidebar1 .nav-links li .sub-menu a:hover {
+            opacity: 1;
+        }
+
+    .sidebar1.close1 .nav-links li .sub-menu {
+        position: absolute;
+        left: 101%;
+        top: -10px;
+        margin-top: 0;
+        padding: 10px 20px;
+        border-radius: 0 6px 6px 0;
+        opacity: 0;
+        display: block;
+        pointer-events: none;
+        transition: 0s;
+    }
+
+    .sidebar1.close1 .nav-links li:hover .sub-menu {
+        top: 0;
+        opacity: 1;
+        pointer-events: auto;
+        transition: all 0.4s ease;
+    }
+
+    .sidebar1 .nav-links li .sub-menu .link_name {
+        display: none;
+    }
+
+    .sidebar1.close1 .nav-links li .sub-menu .link_name {
+        font-size: 15px;
+        opacity: 1;
+        display: block;
+    }
+
+    .sidebar1 .nav-links li .sub-menu.blank {
+        opacity: 1;
+        pointer-events: auto;
+        padding: 3px 20px 6px 16px;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .sidebar1 .nav-links li:hover .sub-menu.blank {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+  
+
+
+.home-section {
+    position: relative;
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: all 0.5s ease;
+}
+
+.sidebar1.close1 ~ .home-section {
+    left: 78px;
+    width: calc(100% - 78px);
+}
+
+.home-section .home-content {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+}
+
+    .home-section .home-content .bx-menu,
+    .home-section .home-content .text {
+        color: #11101d;
+        font-size: 35px;
+    }
+
+    .home-section .home-content .bx-menu {
+        margin: 0 15px;
+        cursor: pointer;
+    }
+
+    .home-section .home-content .text {
+        font-size: 26px;
+        font-weight: 600;
+       
+    }
+  
+
+@media (max-width: 420px) {
+    .sidebar1.close1 .nav-links li .sub-menu {
+        display: none;
+    }
+}

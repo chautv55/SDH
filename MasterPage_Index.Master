@@ -1,0 +1,733 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage_Index.master.cs" Inherits="SDH_VICTORY.MasterPage_Index" %>
+
+<!DOCTYPE html>
+
+<html lang="vi">
+<head runat="server">
+    <title>Sau đại học - TVU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="Bootstrap/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>--%>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="assets/css/style.css" rel="stylesheet">
+    <%--<link href="assets/css/navbar.css" rel="stylesheet">--%>
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="Data/img/TVU.png" />
+    <%--chosen--%>
+    <link href="chosen/chosen.css" rel="stylesheet" />
+    <script src="chosen/chosen.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        
+        .resize{
+            font-size:clamp(10px, 3vw, 21px);
+        }
+        .header-fix {
+            top: 0px;
+            position: sticky;
+            z-index: 10;
+            background-color: white;
+        }
+        .logo{
+            width: 100%; 
+        }
+        .border-bottom-tvu {
+            /*border-top: 7px solid #121260;*/
+            /*border-bottom: 7px solid #121260;*/
+            border-bottom: 20px solid transparent;
+            border-image: url('Data/img/border-bottom.png') 30 stretch;
+            border-image-slice: 0 0 30 0; /* Chỉ lấy phần dưới */
+        }
+        .zalo-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform 0.3s;
+            overflow: hidden; /* Đảm bảo ảnh không vượt quá vòng tròn */
+        }
+
+            .zalo-icon a img {
+                width: 80%; /* Điều chỉnh kích thước ảnh để vừa trong vòng tròn */
+                height: 80%;
+                object-fit: cover; /* Giúp ảnh co dãn phù hợp mà không làm biến dạng */
+                border-radius: 50%;
+            }
+        .btn-lienket {
+            font-weight: 700;
+            border: 3px solid blue;
+            width: 100%;
+            background-color: white;
+            color: darkgreen;
+            font-size: 18pt;
+            line-height: 2;
+            text-align: left;
+        }
+
+            .btn-lienket:hover {
+                background-color: darkblue;
+                color: white;
+            }
+
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server" onreset="event.preventDefault();">
+        <asp:ScriptManager runat="server" />
+        <script>
+            $(function () {
+                $(".select").chosen();
+                $('.summernote').summernote();
+            });
+            //function openModal_alert(texttb) {
+            //    $('#Modal_alert').modal({ backdrop: 'static' });
+            //}
+            function openModalalert(texttb) {
+                $('#Modalalert').modal({ backdrop: 'static' });
+                //console.log(document.getElementById('master_tb'));
+                document.getElementById('master_tb').innerHTML = texttb;
+            }
+            
+            function openModal_nophs(texttb) {
+                $('#Modal_nophs').modal({ backdrop: 'static' });
+                document.getElementById('lbtb_hs').innerHTML = texttb;
+            }
+            function show_openModal_tb() {
+                $('#Modal_show_tb').modal({ backdrop: 'static' });
+            }
+            $('.search_textbox').each(function (i) {
+                $(this).quicksearch("[id*=gv_dslop] tr:not(:has(th))", {
+                    'testQuery': function (query, txt, row) {
+                        return $(row).children(":eq(" + (i + 1) + ")").text().toLowerCase().indexOf(query[0].toLowerCase()) != -1;
+                    }
+                });
+            });
+            //window.onload = function () {
+            //    if (window.location.href.indexOf('refresh=true') === -1) {
+            //        window.location.href = window.location.href + (window.location.href.indexOf('?') === -1 ? '?' : '&') + 'refresh=true';
+            //    }
+            //};
+            function openNewTab(url) {
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                const dropdowns = document.querySelectorAll(".navbar .dropdown .dropdown");
+
+                dropdowns.forEach(function (dropdown) {
+                    {
+                        const menu = dropdown.querySelector("ul");
+
+                        if (!menu) return;
+
+                        // Tạm hiện menu để đo
+                        menu.style.visibility = 'hidden';
+                        menu.style.display = 'block';
+                        const rect = menu.getBoundingClientRect();
+
+                        // Nếu tràn phải → thêm class dropdown-left
+                        if (rect.right > window.innerWidth) {
+                            menu.style.left = "auto";
+                            menu.style.right = "calc(100%)";
+                            menu.style.top = "-5px";
+                            change_left(menu);
+                        }
+
+                        // Reset hiển thị
+                        menu.style.visibility = '';
+                        menu.style.display = '';
+                    }
+                });
+            });
+            function load_nav() {
+
+            }
+            function change_left(menu) {
+                const dropdowns = menu.querySelectorAll(".dropdown");
+                if (!dropdowns) return;
+                dropdowns.forEach(function (dropdown) {
+                    dropdown.addEventListener("mouseenter", function () {
+                        const menu = dropdown.querySelector("ul");
+                        if (!menu) return;
+                        // Nếu tràn phải → thêm class dropdown-left
+                        menu.style.left = "auto";
+                        menu.style.right = "calc(100%)";
+                        menu.style.top = "-5px";
+                        change_left(menu);
+                    });
+                });
+            }
+        </script>
+       
+        <div>
+            <!-- ======= Header ======= -->
+            <header class="border-bottom-tvu">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg d-flex" style="padding-right:0; padding-left:0">
+                                <img src="Data/img/sdh_banner.png" class="img-fluid"  style="max-height:20vh" alt="Background Header" />
+                        </div>
+                        <div class="col-lg-3 d-flex align-items-center">
+                            <p >
+                                <b>
+                                    <i>
+                                        <a class="font-weight-bold text-primary-tvu mb-2 resize" style=" line-height:1.8" href="https://maps.app.goo.gl/huj1xoyaKU1xkMX5A">
+                                            <span class=" fas fa-home "></span>126, Nguyễn Thiện Thành, Khóm 4, Phường Hòa Thuận, tỉnh Vĩnh Long
+                                            </a>
+                                        <br>
+
+                                        <a class="font-weight-bold text-primary-tvu mb-2 resize" style="line-height:1.8" href="tel:0294.3.779.888">
+                                            <spa class="fas fa-phone-alt"></spa>0294.3.779.888</a>
+                                        <br>
+
+                                        <a class="font-weight-bold text-primary-tvu mb-2 resize" style="line-height:1.8" href="mailto:sdh@tvu.edu.vn">
+                                            <span class="fas fa-mail-bulk"></span>sdh@tvu.edu.vn</a>
+                                        <br>
+                                    </i>
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+           
+              <%--  <header class="container " >
+                    <div class=" d-flex justify-content-center">
+                        <a class="ml-2" href="https://tvu.edu.vn/">
+                            <img src="Data/img/logo_tvu.png" style="max-height: 7rem" />
+                        </a>
+                        <h1 class="logo me-auto ml-2 mt-1 mb-1 mr-2">
+                            <a>
+                                <img src="Data/img/bg-header-sdh.jpg" style="max-height: 7rem" />
+                            </a>
+                        </h1>
+                        <div>
+                            <p>
+                                <i><a href="https://maps.app.goo.gl/huj1xoyaKU1xkMX5A">126, Nguyễn Thiện Thành, P.5, Tp Trà Vinh</a>
+                                <br>
+                                <a href="tel:0294.3.779.888">0294.3.779.888</a>
+                                <br>
+                                <a href="mailto:Email: sdh@tvu.edu.vn">sdh@tvu.edu.vn</a>
+                                <br>
+                                </i>
+                            </p>
+                        </div>
+                    </div>
+                </header>--%>
+                        
+                        <%--<div class="ml-auto mr-4">
+                            <div class="mt-2">
+                                <div style="display:flex;">
+                                    <asp:Button Text="Hộp thư góp ý" CssClass="btn btn-warning btn-sm ml-auto" runat="server" />
+                                </div>
+                                <asp:Panel runat="server">
+                                <asp:TextBox runat="server" CssClass="form-control form-control-sm mt-2 mb-2" placeholder="Tìm kiếm"  />
+                                    <asp:Button Text="" style="display:none" runat="server" />
+                                </asp:Panel>
+                            </div>
+                        </div>
+                        <h2 class="ml-auto mr-4">
+                            <asp:LinkButton Text="Nộp hồ sơ trực tuyến" href="NopHS" CssClass="btn  get-started-btn " runat="server" />
+                            <asp:LinkButton Text="Đăng ký tuyển sinh" PostBackUrl="DKTT" CssClass="btn btn-success " Style="border-radius: 30px" runat="server" />
+                            style="border-top:5px solid #5fcf80; box-shadow: 0 -5px 0 0 yellow"
+                        </h2>--%>
+                <div id="header" class="mt-1 mb-2 header-fix" style="font-size: 24pt">
+                    <nav id="navbar" class="navbar shadow-sm  w-100 d-flex justify-content-center " style="border-bottom:solid 2px darkblue" >
+                        <div style="padding:5px 5px; width:100%">
+
+                        <ul id="menu" width="100%" runat="server">
+                            <li><a class="  text-decoration-none" href="Index">
+                                <span class="fas fa-home"></span>
+                            </a></li>
+                            <asp:PlaceHolder runat="server" ID="pl_nav" />
+                            <%--<li>
+                                <asp:LinkButton Text="Dịch vụ trực tuyến" ID="btn_dvtt" runat="server" OnClick="btn_dvtt_Click" />
+                            </li>--%>
+                        </ul>
+                        <i class="bi bi-list mobile-nav-toggle text-center"></i>
+                        </div>
+                    </nav>
+                    <nav id="nav_2nd" runat="server" class="navbar navbar-expand-sm bg-light navbar-light d-flex justify-content-center mt-2">
+                        <div class="col-lg-3">
+                            <asp:LinkButton CssClass="btn btn-custom btn-sm w-100 justify-content-center mt-1" ForeColor="DarkGreen"  PostBackUrl="HSBVTT" Text="HỒ SƠ BẢO VỆ TRỰC TUYẾN" runat="server" />
+                        </div>
+                        <div class="col-lg-3">
+                            <asp:LinkButton CssClass="btn btn-custom btn-sm w-100 justify-content-center mt-1" ForeColor="DarkGreen"  Font-Bold="true" PostBackUrl="DK_HOC" Text="ĐĂNG KÝ TUYỂN SINH/TƯ VẤN" runat="server" />
+                        </div>
+                        <div class="col-lg-3">
+                            <asp:LinkButton OnClick="btn_direct_DVDT_Click" ID="btn_direct_DVDT" CssClass="mt-1 btn btn-custom btn-sm w-100 justify-content-center" ForeColor="DarkGreen" Text="CỔNG DỊCH VỤ ĐIỆN TỬ"  runat="server" />
+                        </div>
+                        <div class="col-lg-3">
+                            <asp:LinkButton CssClass="btn btn-custom btn-sm w-100 justify-content-center mt-1" ForeColor="DarkGreen" Text="TRA CỨU" PostBackUrl="TraCuuKQ" runat="server" />
+                        </div>
+                    </nav>
+                </div>
+            <!-- End Header -->
+            <div class="container-fluid" style="position: relative;" >
+                <div class="row ">
+                    <div class="col-lg-3" runat="server" id="div_left">
+                        <%--left--%>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <asp:ListView ID="lv_left" OnItemDataBound="lv_left_ItemDataBound" runat="server">
+                                    <ItemTemplate>
+                                        <asp:ListView runat="server" ItemCount="5" ID="LV_ITEM"  OnItemDataBound="LV_TT_ItemDataBound" ItemPlaceholderID="pl_">
+                                            <LayoutTemplate>
+                                                <div class="card border-0 mb-2">
+                                                    <div class="card-header text-center card-primary-tvu card-header-tvu">
+                                                        <b>
+                                                            <asp:Label Text="" ID="lb_header_left" runat="server" /></b>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <asp:PlaceHolder runat="server" ID="pl_" />
+                                                        <asp:LinkButton Text="Xem thêm...." ID="show_more" OnClick="show_more_Click" runat="server" />
+                                                    </div>
+                                                </div>
+
+                                            </LayoutTemplate>
+                                            <ItemTemplate>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <asp:Label Text="HOT" CssClass="badge badge-danger text-warning" ID="lb_new" Visible="false" runat="server" />
+                                                        <span class="fas fa-angle-double-right"></span>
+                                                        <asp:LinkButton OnClick="btn_link_tt_Click"
+                                                            ID="btn_link_tt" Font-Underline="false" CssClass="linkbutton" runat="server" />
+                                                        <hr style="border-style: dashed;" />
+                                                    </div>
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:ListView>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                        
+                                <asp:ListView runat="server" ItemCount="5" ID="LV_danhmuc" OnItemDataBound="LV_danhmuc_ItemDataBound" ItemPlaceholderID="pl_">
+                                    <LayoutTemplate>
+                                        <div class="card border-0 mb-2">
+                                            <div class="card-header text-center bg-dark-primary text-white card-header-tvu">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                        <asp:LinkButton OnClick="btn_back_Click" CssClass="fas fa-arrow-left " ForeColor="White" ID="btn_back" runat="server" />
+                                                    </div>
+                                                    <div class="col-lg">
+                                                        <b>
+                                                            <asp:Label Text="" ID="lb_danhmuc" runat="server" />
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-1">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <asp:PlaceHolder runat="server" ID="pl_" />
+                                            </div>
+                                        </div>
+
+                                    </LayoutTemplate>
+                                    <ItemTemplate>
+                                        <div class="row">
+                                            <div class="col">
+
+                                                <asp:LinkButton Text='<%# Eval("header") %>' CommandArgument='<%# Eval("id") %>' OnClick="btn_danhmuc_Click"
+                                                    ID="btn_danhmuc" Font-Underline="false" CssClass="linkbutton" runat="server" />
+                                                <hr style="border-style: dashed;" />
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                                
+                                <asp:ListView runat="server" ID="lv_Hoidong" ItemPlaceholderID="pl_" OnItemDataBound="lv_Hoidong_ItemDataBound" >
+                                    <LayoutTemplate>
+                                        <div class="card border-0 mb-2">
+                                            <div class="card-header text-center bg-dark-primary text-white card-header-tvu">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                    </div>
+                                                    <div class="col-lg">
+                                                        <b>
+                                                            <asp:Label Text="HỘI ĐỒNG" ID="lb_hoidong" runat="server" />
+                                                        </b>
+                                                    </div>
+                                                    <div class="col-1">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body">
+                                                <asp:PlaceHolder runat="server" ID="pl_" />
+                                            </div>
+                                        </div>
+                                    </LayoutTemplate>
+                                    <ItemTemplate>
+                                        <div class="row">
+                                            <div class="col-lg">
+                                                <span class="fas fa-angle-double-right"></span>
+                                                <asp:LinkButton Text="" CssClass="linkbutton" ID="lb_linkHD" Font-Underline="false" OnClick="lb_linkHD_Click" runat="server" />
+                                                <hr style="border-style: dashed;" />
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        
+                    </div>
+                    <div class="col-lg" runat="server" id="div_content">
+                        <%--body--%>
+                        <asp:ContentPlaceHolder runat="server" ID="ContentPlaceHolder1"></asp:ContentPlaceHolder>
+                    </div>
+                    <div class="col-lg-2" runat="server" id="div_right">
+                        <%--right--%>
+                        
+                        <div style="display:block;">
+                            <asp:PlaceHolder runat="server" ID="pl_right" />
+                            <%--<iframe  style=" width:100%;" src="https://www.youtube.com/embed/WDj4iCS1O6o" title="TUYEN SINH CHUYEN KHOA 2022" 
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>--%>
+                        </div>
+                        <div class="card">
+                            <div class="card-body bg-light">
+                                <asp:Label Text="" ID="lb_truycap" runat="server" />
+                                <br />
+                                <asp:Label Text="" ID="lb_online" runat="server" />
+                            </div>
+                        </div>
+                        <%--<asp:ImageButton CssClass="zoom" ToolTip="Thư viện số" Width="100%" ImageUrl="~/Data/img/THU-VIEN-SO.jpg" PostBackUrl="https://opac.tvu.edu.vn/pages/cms/wpid-collection-type-1.html" runat="server" />--%>
+                        <%--<asp:ImageButton CssClass="zoom" ToolTip="Tra cứu thông tin luận văn" Width="100%" ImageUrl="~/Data/img/THONG-TIN-LUAN-VAN.jpg" PostBackUrl="https://hvsdh.tvu.edu.vn/#/tracuuluanvan" runat="server" />--%>
+                        
+                        <%--<asp:ImageButton CssClass="zoom" ToolTip="Tra cứu kế hoạch học tập"  Width="100%" ImageUrl="~/Data/img/TRACUUKHHT.jpg" PostBackUrl="https://hvsdh.tvu.edu.vn/#/home" runat="server" />--%>
+                        <div style="background-color: yellow; color: black; font: bold; text-align:center">
+                            <p>CƠ SỞ ĐÁNH GIÁ <br> NĂNG LỰC NGOẠI NGỮ</p>
+                        </div>
+                        <asp:ImageButton CssClass="zoom" ToolTip="VSTEP-TVU" style="padding:30px"  Width="100%" ImageUrl="~/Data/img/logovsteptvu.jpg" OnClientClick="window.open('https://vstep.tvu.edu.vn/', '_blank'); return false;" runat="server" />
+                        <asp:ImageButton CssClass="zoom" ToolTip="Victory-TVU"  style="padding:30px" Width="100%" ImageUrl="~/Data/img/victory.png" PostBackUrl="https://victory.tvu.edu.vn/" runat="server" />
+                        <asp:ImageButton CssClass="zoom" ToolTip="VSTEP-TVU" style="padding:30px"  Width="100%" ImageUrl="~/Data/img/lvla.png" OnClientClick="window.open('https://luanvan.moet.gov.vn/', '_blank'); return false;" runat="server" />
+                    </div>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-top">
+                        <div class="row">
+                            <div class="col-lg-3">                            </div>
+                            <div class="col-lg footer-links text-center text-primary-tvu ">
+                                <asp:Label runat="server" ID="lb_footer" />
+                            </div>
+                            <div class="col-lg-2">                            </div>
+                        </div>
+                    <div class="row">
+                            <div class="col-lg-3">                            </div>
+
+                        <div class="col-lg">
+                            <div class="card border-0">
+                                <div class="card-header text-center bg-dark-primary card-header-tvu">
+                                    <asp:Label ID="btn_user" Font-Size="15" ForeColor="White" Font-Bold="true" Font-Underline="false" runat="server"></asp:Label>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex border-radius-0 justify-content-center flex-column text-center ">
+                                        <asp:LinkButton Text="Đăng nhập" Font-Underline="false" OnClick="btn_start_Click1" ID="btn_start" CssClass="btn-dangnhap " runat="server" />
+                                    </div>
+                                    <div id="form_login" runat="server">
+                                        <div id="staff_control" visible="false" runat="server">
+                                            <div class="d-flex mb-2">
+                                                <i class="material-icons">play_arrow</i>
+                                                <asp:LinkButton href="Admin_Page" Text="Quản lý Trang" ID="btn_qltrang" runat="server" />
+                                            </div>
+                                            <div class="d-flex mb-2">
+                                                <i class="material-icons">play_arrow</i>
+                                                <asp:LinkButton Text="Quản lý Dữ liệu" PostBackUrl="QLDL" ID="LinkButton4" runat="server" />
+                                            </div>
+                                            <div class="d-flex mb-2">
+                                                <i class="material-icons">play_arrow</i>
+                                                <asp:LinkButton href="QuanlyHS" Text="Quản lý hồ sơ" ID="LinkButton3" runat="server" />
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex mb-2">
+                                            <i class="material-icons">play_arrow</i>
+                                            <asp:LinkButton Text="Thông tin cá nhân" href="User_info" ID="LinkButton5" runat="server" />
+                                        </div>
+                                        <div class="d-flex mb-2">
+                                            <i class="material-icons">play_arrow</i>
+                                            <asp:LinkButton data-toggle="modal" data-target="#Modal_doimk" Text="Đổi mật khẩu" ID="LinkButton2" runat="server" OnClick="btn_dx_Click" />
+                                        </div>
+                                        <div class="d-flex mb-2">
+                                            <i class="material-icons">play_arrow</i>
+                                            <asp:LinkButton data-toggle="modal" data-target="#modal_gop_y" Text="Hộp thư góp ý" ID="LinkButton1" runat="server" />
+                                        </div>
+                                        <div class="d-flex mb-2">
+                                            <i class="material-icons">play_arrow</i>
+                                            <asp:LinkButton data-toggle="modal" data-target="#Modal_dangxuat" Text="Đăng Xuất" ID="btn_dx" runat="server" OnClick="btn_dx_Click" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                            <div class="col-lg-2">                            </div>
+                    </div>
+                </div>
+
+            </footer>
+            <div class="zalo-icon">
+                <a href="https://zalo.me/0918897896" target="_blank">
+                    <img src="Data/img/zalo.png" alt="Zalo" />
+                </a>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="Modalalert" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Thông báo</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <asp:Label ID="master_tb" CssClass="text-gray-900" runat="server"></asp:Label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Modal_alert" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Thông báo</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <asp:Label ID="lb_nd_" Text="Bạn cần đăng nhập để truy cập chức năng này" CssClass="text-gray-900" runat="server"></asp:Label>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:LinkButton Text="Đăng nhập" ID="btn_call_dangnhap" OnClick="btn_call_dangnhap_Click" runat="server" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Modal_nophs" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Thông báo</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <asp:Label ID="lbtb_hs" CssClass="text-gray-900" runat="server"></asp:Label>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:LinkButton Text="Tải hồ sơ" CssClass="btn btn-primary" ID="download_hs" OnClick="download_hs_Click" runat="server" />
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Modal_doimk" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Đổi mật khẩu</h4>
+                    </div>
+                    <asp:Panel runat="server" ID="pn_doimk" DefaultButton="btn_doimk">
+
+                        <div class="modal-body text-center">
+
+                            <div class="row mt-2">
+                                <div class="col">
+                                    Mật khẩu cũ
+                                </div>
+                                <div class="col">
+                                    <asp:TextBox runat="server" ID="old_mk" CssClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    Mật khẩu mới
+                                </div>
+                                <div class="col">
+                                    <asp:TextBox runat="server" TextMode="Password" ID="new_mk" CssClass="form-control" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    Nhập lại mật khẩu mới
+                                </div>
+                                <div class="col">
+                                    <asp:TextBox runat="server" TextMode="Password" ID="new2_mk" CssClass="form-control" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <asp:Button Text="Xác nhận" CssClass="btn btn-primary" ID="btn_doimk" runat="server" OnClick="btn_doimk_Click" />
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </asp:Panel>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Modal_dangxuat" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-yellow-tvu">Xác nhận đăng xuất</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <asp:LinkButton Text="Xác nhận" CssClass="btn btn-primary" OnClick="btn_dx_Click" runat="server" />
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Modalguihs" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Thông báo</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <asp:Label ID="Label1" CssClass="text-gray-900" Text="Đang gửi hồ sơ" runat="server"></asp:Label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal " id="modal_gop_y" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Nội dung góp ý</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <asp:TextBox runat="server" CssClass="form-control" TextMode="MultiLine" ID="txt_gop_y" />
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button Text="Gửi" ID="btn_gui_gopy" OnClick="btn_gui_gopy_Click" CssClass="btn btn-primary" runat="server" />
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <asp:LinkButton Text="" style="display:none" ID="btn_export_pdf" runat="server" />
+        
+    </form>
+    <script>
+
+        function click_view_btnexport() {
+            document.getElementById('<%= btn_export_pdf.ClientID %>').click();
+        }
+        var summernoteData = {};
+        Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(function (sender, args) {
+            // Lưu dữ liệu Summernote trước partial postback
+            $('.summernote').each(function () {
+                var id = $(this).attr('id');
+                summernoteData[id] = $(this).summernote('code');
+            });
+
+        });
+        
+        function pageLoad(sender, args) {
+            if (args.get_isPartialLoad()) {
+                // Reinitialize Chosen plugin after partial postback
+                $(".select").chosen();
+                $('.summernote').each(function () {
+                    var id = $(this).attr('id');
+                    var $this = $(this);
+                    var content = summernoteData[id];
+                    //var content = $this.summernote('code'); // Lưu nội dung
+                    $this.summernote('destroy'); // Hủy khởi tạo cũ
+                    $this.summernote(); // Khởi tạo lại
+                    $this.summernote('code', content); // Khôi phục nội dung
+                    summernoteData = {};
+                });
+                //$('.summernote').summernote();
+            }
+        }
+        function close_Modal_alert() {
+            $('#Modalalert').modal('hide');
+            console.log('hide');
+        }
+        function Modalguihs() {
+            var form = document.getElementById('<%= form1.ClientID%>');
+            if (form.checkValidity()) {
+                $('#Modalguihs').modal({ backdrop: 'static' });
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        function hideModalguihs() {
+            $('#Modalguihs').modal('hide');
+        }
+
+        function post_(id) {
+            __doPostBack(id.name, "");
+            return false;
+        }
+        document.addEventListener("keydown", function (event) {
+            // Kiểm tra nếu phím F5 được nhấn
+            if (event.key === "F5" || event.keyCode === 116) {
+                event.preventDefault(); // Ngăn trình duyệt thực hiện mặc định F5
+
+                // Thực hiện tải lại trang mà không dùng cache
+                window.location.reload(true);
+
+            }
+        });
+        window.addEventListener("beforeunload", function (event) {
+            console.log("Trang sắp được tải lại hoặc đóng.");
+        });
+    </script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <%--<script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6842b686861db019088d78ed/1it29hvh2';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>--%>
+</body>
+</html>

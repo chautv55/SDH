@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SDH" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Detai" Member="Detais">
+    <Type Name="Detai">
+      <Column Name="madetai" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tendetai" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Detai_Detai_TheoDot" Member="Detai_TheoDots" AccessModifier="Internal" ThisKey="madetai" OtherKey="madetai" Type="Detai_TheoDot" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HocPhan" Member="HocPhans">
+    <Type Name="HocPhan">
+      <Column Name="mahp" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenhp" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="hocphi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Detai_TheoDot" Member="Detai_TheoDots">
+    <Type Name="Detai_TheoDot">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_dot" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="madetai" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="congkhai" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ngaybd" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ngaykt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Detai_TheoDot_DK_DETAI" Member="DK_DETAIs" AccessModifier="Internal" ThisKey="id" OtherKey="id_dot" Type="DK_DETAI" />
+      <Association Name="Detai_Detai_TheoDot" Member="Detai" ThisKey="madetai" OtherKey="madetai" Type="Detai" IsForeignKey="true" />
+      <Association Name="Dot_Detai_TheoDot" Member="Dot" ThisKey="id_dot" OtherKey="id" Type="Dot" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DK_DETAI" Member="DK_DETAIs">
+    <Type Name="DK_DETAI">
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_dot" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ngaydk" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="duyet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FILE_YEUCAU" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Detai_TheoDot_DK_DETAI" Member="Detai_TheoDot" ThisKey="id_dot" OtherKey="id" Type="Detai_TheoDot" IsForeignKey="true" />
+      <Association Name="user_table_DK_DETAI" Member="user_table" ThisKey="user_name" OtherKey="user_name" Type="user_table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Dot" Member="Dots">
+    <Type Name="Dot">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tendot" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Dot_Detai_TheoDot" Member="Detai_TheoDots" AccessModifier="Internal" ThisKey="id" OtherKey="id_dot" Type="Detai_TheoDot" />
+    </Type>
+  </Table>
+  <Table Name="dbo.user_table" Member="user_tables">
+    <Type Name="user_table">
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="role" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="log_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vohieuhoa" Type="System.Boolean" DbType="bit" CanBeNull="true" />
+      <Association Name="user_table_DK_DETAI" Member="DK_DETAIs" AccessModifier="Internal" ThisKey="user_name" OtherKey="user_name" Type="DK_DETAI" />
+      <Association Name="user_table_DangKyTT" Member="DangKyTTs" AccessModifier="Internal" ThisKey="user_name" OtherKey="nguoi_xl" Type="DangKyTT" />
+      <Association Name="user_table_BangCap" Member="BangCaps" AccessModifier="Internal" ThisKey="user_name" OtherKey="user_name" Type="BangCap" />
+      <Association Name="user_table_HS_access" Member="HS_accesses" AccessModifier="Internal" ThisKey="user_name" OtherKey="user_name" Type="HS_access" />
+      <Association Name="user_table_HS_BVTT" Member="HS_BVTTs" AccessModifier="Internal" ThisKey="user_name" OtherKey="user_name" Type="HS_BVTT" />
+      <Association Name="user_table_User_info" Member="User_info" AccessModifier="Internal" ThisKey="user_name" OtherKey="user_name" Type="User_info" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DangKyTT" Member="DangKyTTs">
+    <Type Name="DangKyTT">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ngayDK" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="noidung" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="duyet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="loai_dk" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="nguoi_xl" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="user_table_DangKyTT" Member="user_table" ThisKey="nguoi_xl" OtherKey="user_name" Type="user_table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.nhansu_table" Member="nhansu_tables">
+    <Type Name="nhansu_table">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="hocvi" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="tier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="chucvu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="sdt" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="nhiemvu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="conlam" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngayvao" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="AnhNS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BangCap" Member="BangCaps">
+    <Type Name="BangCap">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="bang" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="truong" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="nganh" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="chuyenganh" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="File_" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ngaynop" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="namtn" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ghichu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="user_table_BangCap" Member="user_table" ThisKey="user_name" OtherKey="user_name" Type="user_table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.navbar_table" Member="navbar_tables">
+    <Type Name="navbar_table">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="header" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="id_parent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="stt" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="navbar_table_thongbao" Member="thongbaos" AccessModifier="Internal" ThisKey="id" OtherKey="id_navbar" Type="thongbao" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_bvkt" Member="HS_bvkts">
+    <Type Name="HS_bvkt">
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="luanvan_luanan" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_lv" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="xinbv" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_xinbv" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bang_tn" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_tn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ngoaingu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_nn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="baocaotiendo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_bctd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="phieunhanxet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_phieunx" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="hoanthanh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="han_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_saubv" Member="HS_saubvs">
+    <Type Name="HS_saubv">
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Q_lvla" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_lvla" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bantuongtrinh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_tuongtrinh" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bb_hdbv" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_bb" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ban_nxhd" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_nx" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="xacnhan_cuahd" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_hd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="hoanthanh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="han_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_totnghiep" Member="HS_totnghieps">
+    <Type Name="HS_totnghiep">
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="phieudenghi" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_denghi" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="phieu_noplv" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_noplv" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ccnn" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_ccnn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="hoanhthanh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="han_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TB_SoIN" Member="TB_SoINs">
+    <Type Name="TB_SoIN">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_trcbv" Member="HS_trcbvs">
+    <Type Name="HS_trcbv">
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[_06quyen]" Member="_06quyen" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_06q" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ccnn" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_ccnn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bang_tn" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_tn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="hoanthanh" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="han_ht" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="phieu_nx" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngay_nx" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Nganh_Group" Member="Nganh_Groups">
+    <Type Name="Nganh_Group">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="group_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Nganh_Group_Nganh" Member="Nganhs" AccessModifier="Internal" ThisKey="id" OtherKey="id_group" Type="Nganh" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Nganh" Member="Nganhs">
+    <Type Name="Nganh">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ten_nganh" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="manganh" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="hieuluc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="id_group" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Nganh_BoSungKT" Member="BoSungKTs" AccessModifier="Internal" ThisKey="id" OtherKey="id_nganhhoc" Type="BoSungKT" />
+      <Association Name="Nganh_BoSungKT1" Member="BoSungKTs1" AccessModifier="Internal" ThisKey="id" OtherKey="id_nganhDH" Type="BoSungKT" />
+      <Association Name="Nganh_Nhom_nganh_T" Member="Nhom_nganh_Ts" AccessModifier="Internal" ThisKey="id" OtherKey="id_nganh" Type="Nhom_nganh_T" />
+      <Association Name="Nganh_Group_Nganh" Member="Nganh_Group" ThisKey="id_group" OtherKey="id" Type="Nganh_Group" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HSNop" Member="HSNops">
+    <Type Name="HSNop">
+      <Column Name="id" Type="System.String" DbType="NChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CCCD" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="hoten" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ngaynop" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="sdt" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="loaihs" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="danhsach" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="xuly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="nguoinop" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="malop" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="QD" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NGAY_QD" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MAHV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="id_nganh" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_access" Member="HS_accesses">
+    <Type Name="HS_access">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="loai_hs" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="user_table_HS_access" Member="user_table" ThisKey="user_name" OtherKey="user_name" Type="user_table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_HVTT" Member="HS_HVTTs">
+    <Type Name="HS_HVTT">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="loaimau" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="loai_hs" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ngaynop" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="xuly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="mahv" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BoSungKT" Member="BoSungKTs">
+    <Type Name="BoSungKT">
+      <Column Name="id_nganhhoc" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_nganhDH" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_monhoc" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Nganh_BoSungKT" Member="Nganh" ThisKey="id_nganhhoc" OtherKey="id" Type="Nganh" IsForeignKey="true" />
+      <Association Name="Nganh_BoSungKT1" Member="Nganh1" ThisKey="id_nganhDH" OtherKey="id" Type="Nganh" IsForeignKey="true" />
+      <Association Name="Monhoc_BoSungKT" Member="Monhoc" ThisKey="id_monhoc" OtherKey="id" Type="Monhoc" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Monhoc" Member="Monhocs">
+    <Type Name="Monhoc">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenmon" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="hocphi" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Monhoc_BoSungKT" Member="BoSungKTs" AccessModifier="Internal" ThisKey="id" OtherKey="id_monhoc" Type="BoSungKT" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BieuMau" Member="BieuMaus">
+    <Type Name="BieuMau">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tenBM" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="link_BM" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ngaythem" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HOPTHU" Member="HOPTHUs">
+    <Type Name="HOPTHU">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="noidung" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ngayviet" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="user_gop" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Slide_table" Member="Slide_tables">
+    <Type Name="Slide_table">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="slide" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="show" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="href" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="img_url" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LienKet_Table" Member="LienKet_Tables">
+    <Type Name="LienKet_Table">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.control_dynamic" Member="control_dynamics">
+    <Type Name="control_dynamic">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="position" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="index_control" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FormFields" Member="FormFields">
+    <Type Name="FormField">
+      <Column Name="FieldID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FieldName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="FieldType" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="required" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FieldData" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Form_FormField" Member="Form" ThisKey="FormID" OtherKey="FormID" Type="Form" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Forms" Member="Forms">
+    <Type Name="Form">
+      <Column Name="FormID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="number_column" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="describe" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="show" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="LINK_REPORT" Type="System.String" DbType="nvarchar(MAX)" CanBeNull="true" />
+      <Column Name="key_report" Type="System.String" DbType="nvarchar(MAX)" CanBeNull="true" />
+      <Column Name="allow_down" Type="System.Boolean" DbType="bit" CanBeNull="true" />
+      <Association Name="Form_FormField" Member="FormFields" AccessModifier="Internal" ThisKey="FormID" OtherKey="FormID" Type="FormField" />
+      <Association Name="Form_DVDT_FORM" Member="DVDT_FORMs" AccessModifier="Internal" ThisKey="FormID" OtherKey="FormID" Type="DVDT_FORM" />
+      <Association Name="Form_FormSubmission" Member="FormSubmissions" AccessModifier="Internal" ThisKey="FormID" OtherKey="Form_id" Type="FormSubmission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DVDT_FORM" Member="DVDT_FORMs">
+    <Type Name="DVDT_FORM">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FormID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GROUP_FORM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Form_DVDT_FORM" Member="Form" ThisKey="FormID" OtherKey="FormID" Type="Form" IsForeignKey="true" />
+      <Association Name="DVDT_PAGE_DVDT_FORM" Member="DVDT_PAGE" ThisKey="GROUP_FORM" OtherKey="GROUP_ID" Type="DVDT_PAGE" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DVDT_PAGE" Member="DVDT_PAGEs">
+    <Type Name="DVDT_PAGE">
+      <Column Name="GROUP_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Group_Name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="DVDT_PAGE_DVDT_FORM" Member="DVDT_FORMs" AccessModifier="Internal" ThisKey="GROUP_ID" OtherKey="GROUP_FORM" Type="DVDT_FORM" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FormSubmissions" Member="FormSubmissions">
+    <Type Name="FormSubmission">
+      <Column Name="SubmissionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FieldValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Date_FORM" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Form_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="trangthai" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ghichu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ngayduyet" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Form_FormSubmission" Member="Form" ThisKey="Form_id" OtherKey="FormID" Type="Form" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HOCTAP" Member="HOCTAPs">
+    <Type Name="HOCTAP">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MANGANH" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TEN_NGANH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MAKHOA" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TEN_KHOA" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MALOP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NIENHOC" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="User_info_HOCTAP" Member="User_info" ThisKey="user_name" OtherKey="user_name" Type="User_info" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_BVTT" Member="HS_BVTTs">
+    <Type Name="HS_BVTT">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BUOC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HOANTHANH" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NGAYNOP" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="NOIDUNGHS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="user_table_HS_BVTT" Member="user_table" ThisKey="user_name" OtherKey="user_name" Type="user_table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Gmail_Accout" Member="Gmail_Accouts">
+    <Type Name="Gmail_Accout">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="gmail" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="api_key" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Gmail_Accout_Gmail_send" Member="Gmail_sends" ThisKey="id" OtherKey="id_gmail" Type="Gmail_send" />
+      <Association Name="Gmail_Accout_GMAIL_SEND_D" Member="GMAIL_SEND_Ds" AccessModifier="Internal" ThisKey="id" OtherKey="ID_GMAIL" Type="GMAIL_SEND_D" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Gmail_send" Member="Gmail_sends">
+    <Type Name="Gmail_send">
+      <Column Name="id_gmail" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_reciver" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Gmail_Accout_Gmail_send" Member="Gmail_Accout" ThisKey="id_gmail" OtherKey="id" Type="Gmail_Accout" IsForeignKey="true" />
+      <Association Name="Gmail_Reciver_Gmail_send" Member="Gmail_Reciver" ThisKey="id_reciver" OtherKey="id" Type="Gmail_Reciver" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Gmail_Reciver" Member="Gmail_Recivers">
+    <Type Name="Gmail_Reciver">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="reciver" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Gmail_Reciver_Gmail_send" Member="Gmail_sends" ThisKey="id" OtherKey="id_reciver" Type="Gmail_send" />
+      <Association Name="Gmail_Reciver_GMAIL_SEND_D" Member="GMAIL_SEND_Ds" AccessModifier="Internal" ThisKey="id" OtherKey="ID_SEND" Type="GMAIL_SEND_D" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GMAIL_SEND_DS" Member="GMAIL_SEND_Ds">
+    <Type Name="GMAIL_SEND_D">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CHUCNANG" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ID_GMAIL" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID_SEND" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Gmail_Accout_GMAIL_SEND_D" Member="Gmail_Accout" ThisKey="ID_GMAIL" OtherKey="id" Type="Gmail_Accout" IsForeignKey="true" />
+      <Association Name="Gmail_Reciver_GMAIL_SEND_D" Member="Gmail_Reciver" ThisKey="ID_SEND" OtherKey="id" Type="Gmail_Reciver" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.thongbao" Member="thongbaos">
+    <Type Name="thongbao">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="header" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="body" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="show" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ngaytao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="uutien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="add_file" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="load_tb" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="url" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="id_navbar" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="download" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="icon" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="show_new" Type="System.Boolean" DbType="bit" CanBeNull="true" />
+      <Association Name="navbar_table_thongbao" Member="navbar_table" ThisKey="id_navbar" OtherKey="id" Type="navbar_table" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Time_visit" Member="Time_visits">
+    <Type Name="Time_visit">
+      <Column Name="ngay" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="sl" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_info" Member="User_infos">
+    <Type Name="User_info">
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="hoten" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="NS" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CCCD" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ngaycap" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="true" />
+      <Column Name="noicap" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="sdt" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Noisinh" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Coquan" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="diachi" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="gioitinh" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="MAHV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Nganh_DH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="chuyenh_nganh" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="nam_TN_DH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="cha" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="dt_cha" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ns_cha" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="me" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="dt_me" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ns_me" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vochong" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="dt_vochong" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ns_vochong" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ngay_update" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="quoctich" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="dantoc" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="hokhau" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="User_info_HOCTAP" Member="HOCTAPs" AccessModifier="Internal" ThisKey="user_name" OtherKey="user_name" Type="HOCTAP" />
+      <Association Name="user_table_User_info" Member="user_table" ThisKey="user_name" OtherKey="user_name" Type="user_table" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_DKTS" Member="HS_DKTs">
+    <Type Name="HS_DKT">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOIDUNG" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LOAIHS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NGAY" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="duyet" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Nhom_nganh_TS" Member="Nhom_nganh_Ts">
+    <Type Name="Nhom_nganh_T">
+      <Column Name="id_nganh" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_lichTS" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Nganh_Nhom_nganh_T" Member="Nganh" ThisKey="id_nganh" OtherKey="id" Type="Nganh" IsForeignKey="true" />
+      <Association Name="DBLich_TS_Nhom_nganh_T" Member="DBLich_TS" ThisKey="id_lichTS" OtherKey="id" Type="DBLich_TS" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lich_TS" Member="DBLich_TS">
+    <Type Name="DBLich_TS">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ngaybd" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ngaykt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="loaihs" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="DBLich_TS_Nhom_nganh_T" Member="Nhom_nganh_Ts" AccessModifier="Internal" ThisKey="id" OtherKey="id_lichTS" Type="Nhom_nganh_T" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HS_CK" Member="HS_CKs">
+    <Type Name="HS_CK">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="noidung" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="loaihs" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HoiDong_BV" Member="HoiDong_BVs">
+    <Type Name="HoiDong_BV">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenHD" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="HoiDong_BV_HoiDong" Member="HoiDongs" AccessModifier="Internal" ThisKey="id" OtherKey="id_HD" Type="HoiDong" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Phong_HDBV" Member="Phong_HDBVs">
+    <Type Name="Phong_HDBV">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="phong" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="diachi" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="Phong_HDBV_HoiDong" Member="HoiDongs" AccessModifier="Internal" ThisKey="id" OtherKey="phongBV" Type="HoiDong" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HoiDong" Member="HoiDongs">
+    <Type Name="HoiDong">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenHoiDong" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="thoigianBV" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="nguoiBV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="noidungBV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="phongBV" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="id_HD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ghichu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="giobd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="giokt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HoiDongBV" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="HoiDong_BV_HoiDong" Member="HoiDong_BV" ThisKey="id_HD" OtherKey="id" Type="HoiDong_BV" IsForeignKey="true" />
+      <Association Name="Phong_HDBV_HoiDong" Member="Phong_HDBV" ThisKey="phongBV" OtherKey="id" Type="Phong_HDBV" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
